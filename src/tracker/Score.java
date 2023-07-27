@@ -65,33 +65,40 @@ public class Score {
     }
 
     public static Comparator<Score> scoresComparator(String course){
-        switch (course.toLowerCase()){
-            case "java": return Comparator.comparing(Score::getJava).reversed().thenComparing(Score::getStudentID);
-            case "dsa": return Comparator.comparing(Score::getDsa).reversed().thenComparing(Score::getStudentID);
-            case "databases": return Comparator.comparing(Score::getDatabases).reversed().thenComparing(Score::getStudentID);
-            case "spring": return Comparator.comparing(Score::getSpring).reversed().thenComparing(Score::getStudentID);
-            default: return null;
-        }
+        return switch (course.toLowerCase()) {
+            case "java" -> Comparator.comparing(Score::getJava).reversed().thenComparing(Score::getStudentID);
+            case "dsa" -> Comparator.comparing(Score::getDsa).reversed().thenComparing(Score::getStudentID);
+            case "databases" -> Comparator.comparing(Score::getDatabases).reversed().thenComparing(Score::getStudentID);
+            case "spring" -> Comparator.comparing(Score::getSpring).reversed().thenComparing(Score::getStudentID);
+            default -> null;
+        };
     }
 
     int getPoints(String course){
-        switch (course.toLowerCase()){
-            case "java":  return getJava();
-            case "dsa": return getDsa();
-            case "databases": return getDatabases();
-            case "spring":  return getSpring();
-            default: return 0;
-        }
+        return switch (course.toLowerCase()) {
+            case "java" -> getJava();
+            case "dsa" -> getDsa();
+            case "databases" -> getDatabases();
+            case "spring" -> getSpring();
+            default -> 0;
+        };
     }
 
     private String getPercents(String course){
-        switch (course.toLowerCase()){
-            case "java":  {return new BigDecimal((Double.valueOf(getJava())/Double.valueOf(maxJava))*100.0).setScale(1, RoundingMode.HALF_UP).toString() + "%";}
-            case "dsa": {return new BigDecimal((Double.valueOf(getDsa())/Double.valueOf(maxDsa))*100.0).setScale(1, RoundingMode.HALF_UP).toString() + "%";}
-            case "databases": {return new BigDecimal((Double.valueOf(getDatabases())/Double.valueOf(maxDatabases))*100.0).setScale(1, RoundingMode.HALF_UP).toString() +"%";}
-            case "spring":  {return new BigDecimal((Double.valueOf(getSpring())/Double.valueOf(maxSpring))*100.0).setScale(1, RoundingMode.HALF_UP).toString() +"%";}
-            default:
-                throw new IllegalStateException("Unexpected value: " + course);
+        switch (course.toLowerCase()) {
+            case "java" -> {
+                return new BigDecimal(((double) getJava() / (double) maxJava) * 100.0).setScale(1, RoundingMode.HALF_UP) + "%";
+            }
+            case "dsa" -> {
+                return new BigDecimal(((double) getDsa() / (double) maxDsa) * 100.0).setScale(1, RoundingMode.HALF_UP) + "%";
+            }
+            case "databases" -> {
+                return new BigDecimal(((double) getDatabases() / (double) maxDatabases) * 100.0).setScale(1, RoundingMode.HALF_UP) + "%";
+            }
+            case "spring" -> {
+                return new BigDecimal(((double) getSpring() / (double) maxSpring) * 100.0).setScale(1, RoundingMode.HALF_UP) + "%";
+            }
+            default -> throw new IllegalStateException("Unexpected value: " + course);
         }
     }
 

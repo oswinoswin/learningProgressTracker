@@ -82,15 +82,15 @@ public class Menu {
             if ("back".equals(input)){
                 back = true;
             } else {
-                int id = -1;
+                int id;
                 try {
-                    id = Integer.valueOf(input);
+                    id = Integer.parseInt(input);
                 }catch (NumberFormatException e){
-                    System.out.println("No student is found for id=%s.".formatted(input));
+                    System.out.printf("No student is found for id=%s.%n", input);
                     continue;
                 }
                 if (!scoresController.containsID(id)){
-                    System.out.println("No student is found for id=%s.".formatted(input));
+                    System.out.printf("No student is found for id=%s.%n", input);
                     continue;
                 }
                 System.out.println(scoresController.findStudentScores(id));
@@ -135,14 +135,14 @@ public class Menu {
         int[] ints = new int[4];
         for(int i = 0; i < 4; i++){
             try {
-                int value = Integer.valueOf(splitted[i+1]);
+                int value = Integer.parseInt(splitted[i+1]);
                 ints[i] = value;
-            } catch (NumberFormatException e){ //this probably would be better with regex
+            } catch (NumberFormatException e){
                 System.out.println("Incorrect points format.");
                 return;
             }
             if (ints[i] < 0){
-                System.out.println("Incorrect points format."); //will check studentsID, but that's ok, it will also be >=0'
+                System.out.println("Incorrect points format.");
                 return;
             }
         }

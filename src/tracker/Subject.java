@@ -45,7 +45,7 @@ public class Subject {
 
     public double average(){
         if (points.size() == 0) return -1.0;
-        return points.stream().reduce((x, y) -> x + y).get().doubleValue() / Double.valueOf(points.size());
+        return points.stream().reduce(Integer::sum).get().doubleValue() / (double) points.size();
     }
 
 }

@@ -1,7 +1,6 @@
 package tracker;
 
 import java.util.*;
-import java.util.function.Function;
 
 public class ScoresController {
     Map<Integer, Score> scores;
@@ -63,13 +62,13 @@ public class ScoresController {
     public String find(Comparator<Subject> comparator){
         subjects.sort(comparator);
         if (comparator.compare(subjects.get(0),subjects.get(subjects.size() -1)) == 0) return "n/a";
-        String result = subjects.get(0).getName();
+        StringBuilder result = new StringBuilder(subjects.get(0).getName());
         for (int i = 1; i<subjects.size(); i++){
             if(comparator.compare(subjects.get(i), subjects.get(0)) == 0){
-                result = result + ", " + subjects.get(i).getName();
+                result.append(", ").append(subjects.get(i).getName());
             }
         }
-        return result;
+        return result.toString();
 
     }
 
@@ -93,27 +92,27 @@ public class ScoresController {
     public String popular(){
         subjects.sort(Comparator.comparing(Subject::enrolledStudents).reversed());
         if (subjects.get(0).enrolledStudents() == 0) return "n/a";
-        String result = subjects.get(0).getName();
+        StringBuilder result = new StringBuilder(subjects.get(0).getName());
         int bestValue = subjects.get(0).enrolledStudents();
         for (int i = 1; i<subjects.size(); i++){
             if(subjects.get(i).enrolledStudents() == bestValue){
-                result = result + ", " + subjects.get(i).getName();
+                result.append(", ").append(subjects.get(i).getName());
             }
         }
-        return result;
+        return result.toString();
     }
 
     public String activityHighest(){
         subjects.sort(Comparator.comparing(Subject::activities).reversed());
         if (subjects.get(0).activities() == 0) return "n/a";
-        String result = subjects.get(0).getName();
+        StringBuilder result = new StringBuilder(subjects.get(0).getName());
         int bestValue = subjects.get(0).activities();
         for (int i = 1; i<subjects.size(); i++){
             if(subjects.get(i).activities() == bestValue){
-                result = result + ", " + subjects.get(i).getName();
+                result.append(", ").append(subjects.get(i).getName());
             }
         }
-        return result;
+        return result.toString();
     }
 
 }
