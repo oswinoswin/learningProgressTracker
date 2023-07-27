@@ -1,10 +1,7 @@
 package tracker;
 
-import java.lang.reflect.Array;
 import java.util.Scanner;
-
-import static tracker.StudentDataController.firstNameIsCorrect;
-import static tracker.StudentDataController.lastNameIsCorrect;
+import java.util.Set;
 
 public class Menu {
     Scanner scanner;
@@ -12,6 +9,7 @@ public class Menu {
 
     StudentDataController studentDataController;
     ScoresController scoresController;
+    public static Set<String> availableCourses = Set.of("java", "dsa", "databases", "spring");
 
     public Menu() {
         this.scanner = new Scanner(System.in);
@@ -38,12 +36,33 @@ public class Menu {
                 find();
             } else if ("list".equals(input)) {
                 list();
+            } else if ("statistics".equals(input)) {
+                statistics();
             } else if (input.isBlank()){
                 System.out.println("No input.");
             } else {
                 System.out.println("Unknown command!");
             }
         }
+    }
+
+    private void statistics() {
+        System.out.println("Type the name of a course to see details or 'back' to quit:");
+        System.out.println(scoresController.statistics());
+        boolean back = false;
+        while (!back){
+            String input = scanner.nextLine();
+            if ("back".equals(input)){
+                back = true;
+            } else {
+                if (!availableCourses.contains(input.toLowerCase())){
+                    System.out.println("Unknown course");
+                } else {
+                    System.out.println(scoresController.courseDetails(input));
+                }
+            }
+        }
+
     }
 
     private void list() {
@@ -74,7 +93,7 @@ public class Menu {
                     System.out.println("No student is found for id=%s.".formatted(input));
                     continue;
                 }
-                System.out.println(scoresController.find(id));
+                System.out.println(scoresController.findStudentScores(id));
 
             }
         }
@@ -128,7 +147,7 @@ public class Menu {
             }
         }
 
-        scoresController.update(studentID, new Scores(studentID, ints[0], ints[1], ints[2], ints[3]));
+        scoresController.update(studentID, new Score(studentID, ints[0], ints[1], ints[2], ints[3]));
         System.out.println("Points updated.");
 
     }
