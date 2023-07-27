@@ -87,16 +87,16 @@ public class Score {
     private String getPercents(String course){
         switch (course.toLowerCase()) {
             case "java" -> {
-                return new BigDecimal(((double) getJava() / (double) maxJava) * 100.0).setScale(1, RoundingMode.HALF_UP) + "%";
+                return BigDecimal.valueOf(((double) getJava() / (double) maxJava) * 100.0).setScale(1, RoundingMode.HALF_UP) + "%";
             }
             case "dsa" -> {
-                return new BigDecimal(((double) getDsa() / (double) maxDsa) * 100.0).setScale(1, RoundingMode.HALF_UP) + "%";
+                return BigDecimal.valueOf(((double) getDsa() / (double) maxDsa) * 100.0).setScale(1, RoundingMode.HALF_UP) + "%";
             }
             case "databases" -> {
-                return new BigDecimal(((double) getDatabases() / (double) maxDatabases) * 100.0).setScale(1, RoundingMode.HALF_UP) + "%";
+                return BigDecimal.valueOf(((double) getDatabases() / (double) maxDatabases) * 100.0).setScale(1, RoundingMode.HALF_UP) + "%";
             }
             case "spring" -> {
-                return new BigDecimal(((double) getSpring() / (double) maxSpring) * 100.0).setScale(1, RoundingMode.HALF_UP) + "%";
+                return BigDecimal.valueOf(((double) getSpring() / (double) maxSpring) * 100.0).setScale(1, RoundingMode.HALF_UP) + "%";
             }
             default -> throw new IllegalStateException("Unexpected value: " + course);
         }

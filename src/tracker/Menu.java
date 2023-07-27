@@ -122,13 +122,13 @@ public class Menu {
         String[] splitted = input.split(" ");
         int studentID;
         try {
-            studentID = Integer.valueOf(splitted[0]);
+            studentID = Integer.parseInt(splitted[0]);
         }catch (NumberFormatException e){
-            System.out.println("No student is found for id=%s".formatted(splitted[0]));
+            System.out.printf("No student is found for id=%s%n", splitted[0]);
             return;
         }
         if (!scoresController.containsID(studentID)){
-            System.out.println("No student is found for id=%d".formatted(studentID));
+            System.out.printf("No student is found for id=%d%n", studentID);
             return;
         }
 
