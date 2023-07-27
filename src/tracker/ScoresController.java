@@ -1,7 +1,6 @@
 package tracker;
 
 import java.util.*;
-import java.util.function.Function;
 
 public class ScoresController {
     Map<Integer, Score> scores;
@@ -40,10 +39,6 @@ public class ScoresController {
 
     public void insertID(int id){
         scores.put(id, new Score(id, 0,0,0,0));
-    }
-
-    public void list(){
-        scores.keySet().forEach(System.out::println);
     }
 
     public Score findStudentScores(int studentID){
