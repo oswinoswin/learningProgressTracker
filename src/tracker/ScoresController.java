@@ -1,6 +1,7 @@
 package tracker;
 
 import java.util.*;
+import java.util.function.Function;
 
 public class ScoresController {
     Map<Integer, Score> scores;
@@ -9,7 +10,6 @@ public class ScoresController {
     Subject dsa;
     Subject databases;
     Subject spring;
-
 
 
     public ScoresController() {
@@ -30,8 +30,8 @@ public class ScoresController {
     }
 
     public void update(int id, Score studentScore){
-        Score scoresToUpdate = scores.get(id);
-        scoresToUpdate.update(studentScore.java, studentScore.dsa, studentScore.databases, studentScore.spring);
+        Score scoreToUpdate = scores.get(id);
+        scoreToUpdate.update(studentScore.java, studentScore.dsa, studentScore.databases, studentScore.spring);
         java.add(id, studentScore.java);
         dsa.add(id, studentScore.dsa);
         databases.add(id, studentScore.databases);
@@ -113,6 +113,50 @@ public class ScoresController {
             }
         }
         return result.toString();
+    }
+
+    public List<Integer> notifyForJava(){
+        List<Integer> toNotify = new LinkedList<>();
+        for (Score score: scores.values()){
+            if (score.notifyForJava()){
+                toNotify.add(score.studentID);
+                score.isNotifiedJava = true;
+            }
+        }
+        return toNotify;
+    }
+
+    public List<Integer> notifyForDSA(){
+        List<Integer> toNotify = new LinkedList<>();
+        for (Score score: scores.values()){
+            if (score.notifyForDsa()){
+                toNotify.add(score.studentID);
+                score.isNotifiedDSA = true;
+            }
+        }
+        return toNotify;
+    }
+
+    public List<Integer> notifyForDatabases(){
+        List<Integer> toNotify = new LinkedList<>();
+        for (Score score: scores.values()){
+            if (score.notifyForDatabases()){
+                toNotify.add(score.studentID);
+                score.isNotifiedDatabases = true;
+            }
+        }
+        return toNotify;
+    }
+
+    public List<Integer> notifyForSpring(){
+        List<Integer> toNotify = new LinkedList<>();
+        for (Score score: scores.values()){
+            if (score.notifyForSpring()){
+                toNotify.add(score.studentID);
+                score.isNotifiedSpring = true;
+            }
+        }
+        return toNotify;
     }
 
 }

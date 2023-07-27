@@ -1,5 +1,7 @@
 package tracker;
 
+import java.util.HashSet;
+import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -38,12 +40,39 @@ public class Menu {
                 list();
             } else if ("statistics".equals(input)) {
                 statistics();
+            } else if ("notify".equals(input)) {
+                notifyStudents();
             } else if (input.isBlank()){
                 System.out.println("No input.");
             } else {
                 System.out.println("Unknown command!");
             }
         }
+    }
+
+    private void notifyStudents() {
+        Set<Integer> notified = new HashSet<>();
+        List<Integer> toNotify = scoresController.notifyForJava();
+        List<String> messages = studentDataController.getNotifyMessages(toNotify, "Java");
+        messages.forEach(System.out::println);
+        notified.addAll(toNotify);
+
+        toNotify = scoresController.notifyForDSA();
+        messages = studentDataController.getNotifyMessages(toNotify, "DSA");
+        messages.forEach(System.out::println);
+        notified.addAll(toNotify);
+
+        toNotify = scoresController.notifyForDatabases();
+        messages = studentDataController.getNotifyMessages(toNotify, "Databases");
+        messages.forEach(System.out::println);
+        notified.addAll(toNotify);
+
+        toNotify = scoresController.notifyForSpring();
+        messages = studentDataController.getNotifyMessages(toNotify, "Spring");
+        messages.forEach(System.out::println);
+        notified.addAll(toNotify);
+
+        System.out.println("Total %d students have been notified.".formatted(notified.size()));
     }
 
     private void statistics() {
@@ -71,7 +100,7 @@ public class Menu {
             return;
         }
         System.out.println("Students:  ");
-        scoresController.list();
+        studentDataController.list();
     }
 
     private void find() {

@@ -1,17 +1,19 @@
 package tracker;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
 public class StudentDataController {
-    Map<String, StudentData> data;
+    Map<Integer, StudentData> data;
+    Set<String> emails;
 
     public StudentDataController(){
         data = new LinkedHashMap<>();
+        emails = new HashSet<>();
     }
 
     public void  insert(StudentData studentData){
-        data.put(studentData.email, studentData);
+        data.put(studentData.id, studentData);
+        emails.add(studentData.email);
     }
 
     static boolean firstNameIsCorrect(String name) {
@@ -34,7 +36,20 @@ public class StudentDataController {
     }
 
     boolean containsEmail(String email){
-        return data.containsKey(email);
+        return emails.contains(email);
+    }
+
+    List<String> getNotifyMessages(List<Integer> studentsIDs, String course){
+        List<String> messages = new ArrayList<>();
+        for (int id: studentsIDs){
+            String message = data.get(id).generateEmail(course);
+            messages.add(message);
+        }
+        return messages;
+    }
+
+    public void list(){
+        data.values().forEach(studentData -> System.out.println(studentData.id));
     }
 
 

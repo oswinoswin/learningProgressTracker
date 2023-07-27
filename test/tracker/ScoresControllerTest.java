@@ -59,4 +59,9 @@ class ScoresControllerTest {
         System.out.println("Course details: " + course);
         System.out.println(scoresController.courseDetails(course));
     }
+
+    @Test
+    void testNotify() {
+        System.out.println(scoresController.notifyForJava());
+    }
 }

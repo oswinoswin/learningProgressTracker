@@ -13,4 +13,10 @@ public class StudentData {
         this.id = id;
     }
 
+    public String generateEmail(String course){
+        return "To: " + this.email + "\n" +
+                "Re: Your Learning Progress\n" +
+                "Hello, " + firstName + " " + lastName+ "! You have accomplished our " + course + " course!";
+    }
+
 }

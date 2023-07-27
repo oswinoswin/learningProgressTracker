@@ -14,6 +14,11 @@ public class Score {
     static final int maxDatabases = 480;
     static final int maxSpring = 550;
 
+    public boolean isNotifiedJava = false;
+    public boolean isNotifiedDSA = false;
+    public boolean isNotifiedDatabases = false;
+    public boolean isNotifiedSpring = false;
+
 
 
     public int getJava() {
@@ -46,6 +51,22 @@ public class Score {
         this.databases = databases;
         this.spring = spring;
         this.studentID = studentID;
+    }
+
+    public boolean notifyForJava() {
+        return !isNotifiedJava && this.java >= maxJava;
+    }
+
+    public boolean notifyForDsa() {
+        return !isNotifiedDSA && this.dsa >= maxDsa;
+    }
+
+    public boolean notifyForDatabases() {
+        return !isNotifiedDatabases && this.databases >= maxDatabases;
+    }
+
+    public boolean notifyForSpring() {
+        return !isNotifiedSpring && this.dsa >= maxSpring;
     }
 
     public void update(int java, int dsa, int databases, int spring){
